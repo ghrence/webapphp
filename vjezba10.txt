@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brojanje riječi</title>
+    <meta name="author" content="Gabriel Hrenčević">
+</head>
+<body>
+
+<div class="container">
+    <h2>Brojanje riječi</h2>
+
+    <form method="post">
+        <label for="inputText">Ulazni niz:</label>
+        <input type="text" name="inputText" id="inputText" placeholder="Unesite rečenicu" required>
+        <button type="submit" name="countWords">Broj riječi</button>
+    </form>
+
+    <?php
+    if (isset($_POST['countWords'])) {
+        $inputText = $_POST['inputText'];
+        $wordCount = str_word_count($inputText);
+        echo "<div class='result'>Broj riječi: $wordCount</div>";
+    }
+    ?>
+</div>
+
+</body>
+</html>
