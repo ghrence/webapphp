@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tražilica korisnika</title>
+</head>
+<body>
+    <h1>Pretraživanje korisnika</h1>
+    <form action="" method="post">
+        <label for="search">Unesite ime ili prezime:</label>
+        <input type="text" id="search" name="search" required>
+        <button type="submit">Pretraži</button>
+    </form>
+
+    <div class="container">
+        <h1>SELECT korisnika &rsaquo; DML </h1>
+        <?php 
+        $MySQL = mysqli_connect("localhost","root","","test3") or die('Error connecting to MySQL server.');
+
+        echo '<h2>Users</h2>
+            <ul>
+                <li><a href="?menu=1">SELECT ALL</a></li>
+                <li><a href="?menu=2">SELECT ALL &rsaquo; ORDER DESC name</a></li>
+                <li><a href="?menu=3">SELECT ALL &rsaquo; ORDER ASC lastname</a></li>
+                <li><a href="?menu=4">SELECT &rsaquo; WHERE lastname Doe</a></li>
+                <li><a href="?menu=5">SELECT &rsaquo; LIMIT 10</a></li>
+                <li><a href="?menu=6">SELECT &rsaquo; ORDER ASC lastname AND LIMIT 15</a></li>
+            </ul>
+            <hr style="border-bottom:1px solid grey">';
+
+        // Odabir upita po GET parametru
+        if (!isset($_GET['menu']) || $_GET['menu'] == 1) {
+            $query  = "SELECT * FROM users";
+        } elseif ($_GET['menu'] == 2) {
+            $query  = "SELECT * FROM users ORDER BY name DESC";
+        } elseif ($_GET['menu'] == 3) {
+            $query  = "SELECT * FROM users ORDER BY lastname ASC";
+        } elseif ($_GET['menu'] == 4) {
+            $query  = "SELECT * FROM users WHERE lastname='Doe'";
+        } elseif ($_GET['menu'] == 5) {
+            $query  = "SELECT * FROM users LIMIT 10";
+        } elseif ($_GET['menu'] == 6) {
+            $query  = "SELECT * FROM users ORDER BY lastname ASC LIMIT 15";
+        }
+
+        
+        if (isset($_POST['search'])) {
+            $search = mysqli_real_escape_string($MySQL, $_POST['search']);
+            $query = "SELECT * FROM users WHERE name LIKE '%$search%' OR lastname LIKE '%$search%'";
+        }
+
+        $result = mysqli_query($MySQL, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                echo "<p><b>" . htmlspecialchars($row['name']) . "</b> <span style='color:green'>" . htmlspecialchars($row['lastname']) . "</span></p>";
+            }
+        } else {
+            echo "<p>Nema rezultata.</p>";
+        }
+        ?>
+    </div>
+</body>
+</html>
+
+
