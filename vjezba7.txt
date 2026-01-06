@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Izračun prosjeka i konačne ocjene</title>
+    <meta name="description" content="Izračun prosjeka i konačne ocjene pomoću PHP-a">
+    <meta name="keywords" content="PHP, ocjene, prosjek, kolokvij">
+    <meta name="author" content="Gabriel Hrenčević">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Izračun prosjeka i konačne ocjene</h2>
+
+    <form method="post">
+        <label for="kolokvij1">Ocjena I. kolokvija:</label>
+        <input type="number" name="kolokvij1" id="kolokvij1" min="1" max="5" step="0.01" required>
+
+        <label for="kolokvij2">Ocjena II. kolokvija:</label>
+        <input type="number" name="kolokvij2" id="kolokvij2" min="1" max="5" step="0.01" required>
+
+        <button type="submit" name="submit">Izračunaj</button>
+    </form>
+
+    <?php
+    if (isset($_POST['submit'])) {
+
+        $kolokvij1 = $_POST['kolokvij1'];
+        $kolokvij2 = $_POST['kolokvij2'];
+
+        if ($kolokvij1 < 1 || $kolokvij2 < 1) {
+            echo "<h3>Konačna ocjena: 1 (negativna)</h3>";
+        } else {
+            $prosjek = ($kolokvij1 + $kolokvij2) / 2;
+
+            if ($prosjek >= 4.5) {
+                $final_grade = 5;
+            } elseif ($prosjek >= 3.5) {
+                $final_grade = 4;
+            } elseif ($prosjek >= 2.5) {
+                $final_grade = 3;
+            } elseif ($prosjek >= 1.5) {
+                $final_grade = 2;
+            } else {
+                $final_grade = 1;
+            }
+
+            echo "<h3>Prosjek: $prosjek</h3>";
+            echo "<h3>Konačna ocjena: $final_grade</h3>";
+        }
+    }
+    ?>
+</div>
+
+<!-- Ime dokumenta: index.php -->
+</body>
+</html>
