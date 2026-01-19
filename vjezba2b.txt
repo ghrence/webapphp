@@ -1,0 +1,114 @@
+<?php
+$naslov = "PHP dokument — vježba 1c";
+$autor = "Gabriel Hrenčević";
+$opis = "Ova stranica prikazuje osnovne koncepte povezivanja PHP varijabli s HTML strukturom i CSS stilovima.";
+$linkInfo = "https://www.php.net";
+$linkNatrag = "vjezba1b.php";
+?>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $naslov; ?></title>
+    <style>
+        :root {
+            --bg: #1a1a1a;
+            --card: #ffffff;
+            --text: #333333;
+            --muted: #777777;
+            --accent: #2ecc71;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .wrap {
+            max-width: 720px;
+            width: 90%;
+            background: var(--card);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .author-text {
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .links {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        footer {
+            margin-top: 32px;
+            font-size: 0.9rem;
+            color: var(--muted);
+            border-top: 1px solid #eeeeee;
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+        <h1><?php echo $naslov; ?></h1>
+        
+        <p><?php echo $opis; ?></p>
+        <p class="author-text">Autor: <?php echo $autor; ?></p>
+
+        <div class="links">
+            <a href="<?php echo $linkInfo; ?>" class="btn" target="_blank">Saznaj više o PHP-u</a>
+            <a href="<?php echo $linkNatrag; ?>" class="btn">Natrag na vježba 1b</a>
+        </div>
+
+        <footer>
+            &copy; <?php echo date('Y'); ?> - Sva prava pridržana.
+        </footer>
+    </div>
+
+</body>
+</html>
